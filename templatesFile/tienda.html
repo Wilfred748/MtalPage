@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shopping cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tienda.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</head>
+
+<body>
+    <header>
+    <div class="nav container">
+
+        <div class="dropdown">
+            <button class="drop-moneda">Moneda</button>
+            <div id="myDrop-moneda" class="drop-moneda-content">
+              <a href="#">RD$</a>
+              <a href="#">USD$</a>
+              <a href="#">EUR€</a>
+            </div>
+          </div>
+
+        <div id="boton-casa">
+            <span>
+                <a class="btn-volver" href="{{ url_for ('main') }}" style="text-decoration: none;">Volver</a>
+            </span>
+        </div>
+<!--
+        <form class="Filtros">
+            <button onclick="myFunction2()" class="btn-filtro">Filtros</button>
+            <div class="contenido-filtro" id="myDrop-filtro">
+                {% for category in categories %}
+                <div>
+                  <input type="checkbox" name="category" value="{{ category }}" {% if category in selected_categories %}checked{% endif %}>
+                  <label>{{ category }}</label>
+                </div>
+                {% endfor %}
+                <div>
+                  <label>Price:</label>
+                  <input type="number" name="price" value="{{ selected_price }}">
+                </div>
+                <div>
+                  <button type="submit">Filtrar</button>
+                </div>
+
+            </div>
+        </form>
+-->
+        <div style="margin-left: 80%">
+            <a href="{{ url_for('login')}}" style=" text-decoration: none;font-size:30px;"><i class="fa fa-user-circle-o"></i></a>
+        </div>
+
+
+            
+    </div>
+
+    <form action="http://127.0.0.1:5000/busqueda" class="search" method="POST">
+        {{ form.hidden_tag() }}
+    <div class="search-bar">
+        <input placeholder="Buscar..." type="text" class="search_bar" name="name">
+        <input value="submit" type="submit" class="buscar_producto">
+    </div>
+    </form>
+
+
+    <br>
+</header>
+
+<section class="shop container">
+    <h2 class="section-title">shop products</h2>
+    <div class="shop-content">
+        <div class="shop-content" style="display: grid; grid-template-columns: repeat(5, 1fr);">
+            {% for i in range(names|length) %}
+                <div class="product-box" style="grid-column: {{ (i%5) + 1 }};">
+                    <section>
+                        <img src="{{ img_urls[i] }}" alt="{{ names[i] }}" class="product-img">
+                        <h2 class="product-title">{{ names[i] }}</h2>
+                        <span>RD$</span><span class="price">{{ prices[i] }}</span>
+                        <a href="{{ url_for('cart')}}"><i class='bx bx-cart add-cart' ></i></a>
+                        <span class="description-product">{{ descriptions[i] }}</span>
+                    </section>
+                </div>
+            {% endfor %}
+        </div>
+ <!--      
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/nintendo-switch-console-grey.png') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Nintendo Switch</h2>
+            <span class="price">10,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+            <span class="description-product">Nintendo bonita y grande de 12"</span>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/play5.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">PlayStation 5</h2>
+            <span class="price">45,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/03d77dd9-bb2c-4d33-a41c-28c515057ea2.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Control de PS5</h2>
+            <span class="price">4,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/8f9d22e3-d9eb-41ef-9f52-e3fc90a1c811.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Xbox series s</h2>
+            <span class="price">25,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/43441f78-67a9-417f-98ac-59d728484000.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Xbox series x</h2>
+            <span class="price">30,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/ac47b108-0423-418d-a9b1-c1e655edce8c.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">AirPods</h2>
+            <span class="price">25000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/acc875ca-0d97-4ac3-b06a-0336e5a1345d.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Television</h2>
+            <span class="price">30,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/TV1.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">TV TCL 55' ROKU</h2>
+            <span class="price">35,000$</p>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/TV2.JPG') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">TV TCL Smart TV 65'
+            </h2>
+            <span class="price">44,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/ps4-product-thumbnail-01-en-14sep21.webp') }}" class="product-img">
+            <h2 class="product-title" name="name">PlayStation 4
+            </h2>
+            <span class="price">29,750RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/controlps4.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Control de PS4</h2>
+            <span class="price">1,595D$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/monitor_samsung.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Monitor Samsung
+            </h2>
+            <span class="price">8,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/ipad_pro.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Apple Ipad Pro
+            </h2>
+            <span class="price">35,400RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/AIRPODS-PRO.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Airpods Pro
+            </h2>
+            <span class="price">1,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/galaxy-fold-4.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Samsung Galaxy Z Fold 4
+            </h2>
+            <span class="price">90,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/galaxy-flip.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Samsung Galaxy Flip
+            </h2>
+            <span class="price">62,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphonex.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">iphone X
+            </h2>
+            <span class="price">22,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphonexr.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">iphone XR
+            </h2>
+            <span class="price">18,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphone11.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">iphone 11
+            </h2>
+            <span class="price">25,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphone12.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Iphone 12
+            </h2>
+            <span class="price">39,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphone8.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">iphone 8
+            </h2>
+            <span class="price">11,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphone14.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">iphone 14
+            </h2>
+            <span class="price">57,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphone13.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">iphone 13
+            </h2>
+            <span class="price">40,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/a22-5g.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Samsung A22 5G
+            </h2>
+            <span class="price">20,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/camara-nikon.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cámara Nikon D7500
+            </h2>
+            <span class="price">61,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/camara-canon.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">Cámara Canon t3i
+            </h2>
+            <span class="price">17,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/audifonos-sony-cable.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Audifonos Sony mdr-zx110
+            </h2>
+            <span class="price">1,100RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/audifonos-sony.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Audifonos Inalambricos Sony WH ch 510
+            </h2>
+            <span class="price">3,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/kotion-each-g2000.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Audifonos Kotion each g2000
+            </h2>
+            <span class="price">1,700RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/laptop-evoo.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">LAPTOP EVOO intel core i7 ssd 256gb ram 8gb
+            </h2>
+            <span class="price">50,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/lenovo.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">LAPTOP LENOVO v15 ada 15.6'' amd gold 2.40 ghz. / 8gb ram / 1tb
+            </h2>
+            <span class="price">28,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/impresora-canon.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Impresora Canon g3110
+            </h2>
+            <span class="price">15,500$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/impresora-epson.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Impresora Epson L3250
+             </h2>
+            <span class="price">14,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/mouse-logitech.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">Logitech-Mouse G502
+            </h2>
+            <span class="price">3,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/teclado-logitech.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Logitech-Teclado G213
+            </h2>
+            <span class="price">3,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/cargador-hp.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cargador Fuente para HP
+            </h2>
+            <span class="price">1,500$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/cargador-dell.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cargador Fuente para DELL
+            </h2>
+            <span class="price">3,100RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/HDMI12.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable HDMI 12 Pies
+            </h2>
+            <span class="price">250$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/hdmi6.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable HDMI 6 Pies
+            </h2>
+            <span class="price">150$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/LAN25.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable de Red 25 Pies
+            </h2>
+            <span class="price">320$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/LAN6.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable de Red 7 Pies
+            </h2>
+            <span class="price">200D$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/hdmi-vga.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">Adaptador HDMI a VGA
+            </h2>
+            <span class="price">725$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/microusb3.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable microusb 3 pies
+            </h2>
+            <span class="price">90RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/cablea-b.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable A/B 6 pies
+            </h2>
+            <span class="price">110$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/tipoc.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable tipo C 3 pies
+                </h2>
+            <span class="price">150RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/minia.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cable tipo A 3 pies
+            </h2>
+            <span class="price">200$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/webcam-argom.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Argom-Camara WebCam50
+            </h2>
+            <span class="price">850RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/argomcooling.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Argom Cooling Pad para laptop
+            </h2>
+            <span class="price">450$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/discoduro.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Disco Duro externo 1TB 
+            </h2>
+            <span class="price">3,600RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/discoduro500.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">Disco Duro Externo 500GB
+            </h2>
+            <span class="price">2,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/discoduro2tb.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Disco Duro Externo 2TB
+            </h2>
+            <span class="price">4,700RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/intel-i7.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Intel-I7-10700
+            </h2>
+            <span class="price">24,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/intel-i5.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Intel-I5-12600K
+            </h2>
+            <span class="price">25,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/ryzen7.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">CPU Ryzen 7 5800X
+            </h2>
+            <span class="price">40,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/ryzen5.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">CPU Ryzen 5 5600X
+            </h2>
+            <span class="price">16,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/samsungwatch5.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Samsung Galaxy watch 5</h2>
+            <span class="price">6,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/samsungwatch4.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Samsung Galaxy watch 4</h2>
+            <span class="price">4,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/xiaomiband5.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">Xiaomi Band 5</h2>
+            <span class="price">1,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/amanfit.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Amazfit GTR 3</h2>
+            <span class="price">7,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/amanfitgts.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Amazfit GTS Fitness</h2>
+            <span class="price">6,800$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/tecladogamingrazer.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Teclado gaming de Razer</h2>
+            <span class="price">11,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/teclado-logitech.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Logitech G213</h2>
+            <span class="price">3,500$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/g413.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Logitech G413</h2>
+            <span class="price">3,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/steelseries.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">SteelSeries Apex Pro TKL</h2>
+            <span class="price">8,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/huntsman.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Razer Huntsman Elite Gaming Keyboard</h2>
+            <span class="price">10,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/oneplus.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">OnePlus 10 Pro</h2>
+            <span class="price">38,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/iphone13promax.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">iPhone 13 Pro Max</h2>
+            <span class="price">50,00RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/samsungs22.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Samsung Galaxy S22</h2>
+            <span class="price">47,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/xperiaiii.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Xperia 1 III</h2>
+            <span class="price">50,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/motorolaedge.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Motorola Edge</h2>
+            <span class="price">20,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/JBLbocina.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">JBL CHARGE 5</h2>
+            <span class="price">13,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/bocinarazer.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Razer Nommo Chroma</h2>
+            <span class="price">7,000$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/cyberbocina.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cyber Acoustics CA-2014</h2>
+            <span class="price">1,800RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/jblbocina3.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">JBL Charge 3</h2>
+            <span class="price">6,750RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/microdinamico70.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Presonus PD-70 Micrófono dinámico</h2>
+            <span class="price">5,700RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/microminiusb.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Mini micrófono USB para reuniones</h2>
+            <span class="price">450RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/microfono.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Micrófono dinámico (SM7B)</h2>
+            <span class="price">4500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/galaxybuds.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Galaxy Buds Live</h2>
+            <span class="price">4,500$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/buds3t.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Buds 3T Pro</h2>
+            <span class="price">6,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/gaming-headset.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Audifonos Bluetooth para juegos </h2>
+            <span class="price">1,800$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/cableLA1ft.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Patch cable, CAT6, 1FT</h2>
+            <span class="price">80RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/auxiliar.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">Cable auxiliar trenzado para equipos de audio</h2>
+            <span class="price">90RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/cargador-pared.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Cargador USB de pared para celulares</h2>
+            <span class="price">350RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/control-switch.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Nintendo Switch Pro Controller</h2>
+            <span class="price">3,700$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/controldualsense.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Control PS5 DualSense</h2>
+            <span class="price">3,800RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/samsungsmart.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Samsung Smart TV FHD LED 32'</h2>
+            <span class="price">13,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/blackberry.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Blackberry Classic Q20 SQC100-1</h2>
+            <span class="price">9,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/camara-vigilancia.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Camara de Vigilancia HikiVision</h2>
+            <span class="price">3,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/bici-electrica.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Bicicleta Electrica TAILG</h2>
+            <span class="price">52,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/dildo-electrico.jpg') }}" class="product-img">
+            <h2 class="product-title" name="name">VIBRADOR LUSH KIRA VELVET</h2>
+            <span class="price">3,800RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+            <span class="description-product">¡Kira ofrece 7 funciones de vibración, ofreciendo muchas opciones para elegir!</span>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/masturbadorwebo.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">TENGA EGG-010</h2>
+            <span class="price">4,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/PC-dell.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">DELL - OPTIPLEX 7000 SFF I5, 16GB, 512GB</h2>
+            <span class="price">70,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+       
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/laptop-lenovo.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">LENOVO - LAPTOP LENOVO THINKPAD T480 14"</h2>
+            <span class="price">113,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+            <span class="description-product"> LAPTOP LENOVO THINKPAD T480 14", I5-8350U 1.70 GHZ, 8GB DDR4 RAM,512GB DISCO DURO, WINDOWS 10 PRO</span>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/duracell.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Bateria Duracell AA</h2>
+            <span class="price">90RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/lapizapple.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Lapiz para ipad apple</h2>
+            <span class="price">9,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/lapiz3d.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Lapiz 3D</h2>
+            <span class="price">3,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/sacapuntas-electrico.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Sacapunta Eléctrico Bostitch</h2>
+            <span class="price">1,600RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/proyector.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">EPSON - PROYECTOR POWERLITE</h2>
+            <span class="price">43,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/usb128.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">Memoria USB Kingston DataTraveler 128Gb</h2>
+            <span class="price">30,000RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+        
+        <div class="product-box">
+            <img src="{{ url_for('static', filename='img/usbkiller.jpg') }}" alt="" class="product-img">
+            <h2 class="product-title" name="name">USB Killer Pro Kit</h2>
+            <span class="price">15,500RD$</span>
+            <i class='bx bx-cart add-cart' ></i>
+        </div>
+-->
+
+    </div>
+
+</section>
+<!--link to js-->
+<script>
+    function myFunction2() {
+       var chart = document.getElementById("myDrop-filtro");
+       chart.classList.toggle("mostrar");
+    }
+
+       </script>
+
+
+</body>
+</html>

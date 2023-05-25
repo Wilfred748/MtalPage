@@ -1,0 +1,107 @@
+
+<header>
+    <div class="nav container">
+
+        <div id="boton-casa">
+            <span>
+                <a class="btn-volver" href="{{ url_for ('main') }}" style="text-decoration: none;">Volver</a>
+            </span>
+        </div>
+
+        <div class="Filtros">
+            <button onclick="myFunction2()" class="btn-filtro">Filtros</button>
+            <div class="contenido-filtro" id="myDrop-filtro">
+                <ul>
+                    <li class="Orden">
+                        <p><b><i>Dispositivo</i></b></p>
+                    </li>
+                   <li class="mayor-menor">
+                        <input type="checkbox" value="de mayor a menor">de mayor a menor
+                   </li> 
+        
+                   <li class="menor-mayor">
+                        <input type="checkbox" value="de menor a mayor">de menor a mayor
+                   </li>
+        
+                   <li class="dispositivo">
+                    <p><b><i>Dispositivo</i></b></p>
+                        <input type="checkbox" value="Consolas">Consolas
+                        <br>
+                        <input type="checkbox" value="Computadoras">Computadoras
+                        <br>
+                        <input type="checkbox" value="Monitores">Monitores
+                        <br>
+                        <input type="checkbox" value="Celulares">Celulares
+                        <br>
+                        <input type="checkbox" value="Portátiles">Portátiles
+                        <br>
+                        <input type="checkbox" value="Accesorios">Accesorios
+                        <br>
+                        <input type="checkbox" value="Pantallas">Pantallas
+                   </li>
+        
+                   <li class="marca">
+                    <p><b><i>Marcas</i></b></p>
+                        <input type="checkbox" value="Sony">Sony
+                        <br>
+                        <input type="checkbox" value="HP">HP
+                        <br>
+                        <input type="checkbox" value="Lenovo">Lenovo
+                        <br>
+                        <input type="checkbox" value="Apple">Apple
+                        <br>
+                        <input type="checkbox" value="Acer">Acer
+                        <br>
+                        <input type="checkbox" value="Samsung">Samsung
+                        <br>
+                        <input type="checkbox" value="Microsoft">Microsoft
+                        <br>
+                        <input type="checkbox" value="LG">LG
+                        <br>
+                        <input type="checkbox" value="Panasonic">Panasonic
+                   </li>
+        
+                   <li class="precio">
+                    <p><b><i>Precio</i></b></p>
+                        <p>De $</p><input type="text"><p>a $</p><input type="text">
+                   </li>
+                   <li>
+                    <input type="submit" value="Filtrar" class="btn-filtrar">
+                   </li>
+        
+                </ul>
+
+            </div>
+        </div>
+
+        <div style="margin-left: 80%">
+            <a href="{{ url_for('account_info')}}" style=" 
+            text-decoration: 
+            none;font-size:30px; 
+            padding-left: 7px;
+            padding-right: 7px;
+            border-radius: 50%;"><i class="fa fa-user-circle-o"></i></a>
+        </div>
+
+
+            
+    </div>
+    <form action="http://127.0.0.1:5000/busqueda" class="search" method="POST">
+        {{ form.hidden_tag() }}
+    <div class="search-bar">
+        <input placeholder="Buscar..." type="text" class="search_bar" name="name">
+        <input value="submit" type="submit" class="buscar_producto">
+    </div>
+    </form>
+
+
+    <br>
+</header>
+
+<script>
+    function myFunction2() {
+       var chart = document.getElementById("myDrop-filtro");
+       chart.classList.toggle("mostrar");
+    }
+
+</script>

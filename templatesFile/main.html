@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tienda website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">  
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/eb496ab1a0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="page" class="site">
+        <header>
+            <div class="header-top">
+                <div class="container"></div>
+                <div class="wrapper flexitem">
+                    <div class="left">
+                        <ul class="flexitem main links">
+                            <li><a href="#">moneda<span class="icon-small"><i class="ri-arrow-down-s-line"></i></span><ul>
+                                <li class="current"><a href="#">USD$</a></li>
+
+                                <li><a href="#">EUR€</a></li>
+                                <li><a href="#"> RD$</a></li>
+                            </ul></a></li>
+                            <li><a href="#">English <span class="icon-small"><i class="ri-arrow-down-s-line"></i></span><ul>
+                                <li class="current"><a href="#">English</a></li>
+                                <li><a href="#">Español</a></li>
+                                <li><a href="#">Française</a></li>
+                                <li><a href="#">Pôrtugues</a></li></a></li>
+                        </ul>
+
+                    </div>
+                    <div class="right">
+                        <ul>
+                            <ul class="flexitem main-links" style="font-size: 15px;font-family: Georgia, 'Times New Roman', Times, serif;">
+                                <li><a href="{{ url_for('login') }}">Login</a></li>
+                                <li><a href="{{ url_for('signup')}}">Signup</a></li> 
+                                <li>
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        {% for message in messages %}
+                                            <h4 style="color: rgb(219, 31, 31); text-align: center;">{{ message }}</h4>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                                </li>
+                                
+                                                        
+                            
+                            </ul>                         
+                        </ul>
+
+
+                    </div>
+                    <div class="center">
+                        <div class="account">
+                            <a href="{{ url_for('account_info') }}">
+                                <div class="account_info"><i class="fa fa-user-circle-o"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-nav">
+                <div class="container">
+                    <div class="wrapper flexitem">
+                        <a href="#" class="trigger desktop-hide"><span class="i ri-menu-2-line"></span></a>
+                        <div class="left flexitem">
+                            <div class="logo"><a href=""><span class="circle"></span>TEKEPRE</a></div>
+                            <nav class="mobile-hide">
+                                <ul class="flexitem second links">
+                                    <li><a href="{{ url_for('main') }}">Home</a></li>
+
+                                    <li class="has-child">
+                                        <a href="{{ url_for('tienda') }}">Productos 
+                                            <div class="icon-small"><i class="ri-arrow-down-s-line"></i></div>
+                                        </a>
+                                        <div class="mega">
+                                            <div class="container">
+                                                <div class="wrapper">
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Electrónicos</h4>
+                                                            <ul>
+                                                                <li><a href="#">Consolas</a></li>
+                                                                <li><a href="#">Componentes</a></li>
+                                                                <li><a href="#">Monitores</a></li>
+                                                                <li><a href="#">Computadoras</a></li>
+                                                                <li><a href="#">Laptops</a></li>
+                                                                <li><a href="#">Celulares</a></li>
+                                                                <li><a href="#">Tabletas</a></li>
+                                                                <li><a href="#">Ipads</a></li>
+                                                                <li><a href="#">Impresoras</a></li>
+                                                                <li><a href="#">Televisores</a></li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Moviles</h4>
+                                                            <ul>
+                                                                <li><a href="#">Samsung</a></li>
+                                                                <li><a href="#">Apple</a></li>
+                                                                <li><a href="#">Xiaomi</a></li>
+                                                                <li><a href="#">Alcatel</a></li>
+                                                                <li><a href="#">Huaweii</a></li>
+                                                                <li><a href="#">Motorola</a></li>
+                                                                <li><a href="#">Blackberry</a></li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Accesorios</h4>
+                                                            <ul>
+                                                                <li><a href="#">Audífonos</a></li>
+                                                                <li><a href="#">Cargadores</a></li>
+                                                                <li><a href="#">Adaptadores</a></li>
+                                                                <li><a href="#">Cables de Red</a></li>
+                                                                <li><a href="#">Cables HDMI</a></li>
+                                                                <li><a href="#">Cables VGA</a></li>
+                                                                <li><a href="#">Controles</a></li>
+                                                                <li><a href="#">Ratones</a></li>
+                                                                <li><a href="#">Teclados</a></li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flexcol">
+                                                        <div class="row">
+                                                            <h4>Top Brands</h4>
+                                                            <ul class="Computer-Brands">
+                                                                <li><a href="#">DELL</a></li>
+                                                                <li><a href="#">HP</a></li>
+                                                                <li><a href="#">Lenovo</a></li>
+                                                                <li><a href="#">Acer</a></li>
+                                                                <li><a href="#">Intel</a></li>
+                                                                <li><a href="#">Apple</a></li>
+                                                                <li><a href="#">Samsung</a></li>
+                                                                <li><a href="#">Xiaomi</a></li>
+                                                                <li><a href="#">Huaweii</a></li>
+                                                                <li><a href="#">Sony</a></li>
+                                                                <li><a href="#">AMD</a></li>
+                                                                
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    
+                                    </li>
+                                  
+                                    
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="right">
+                            <ul class="flexitem second-links">
+                                <li class="mobile-hide"><a href="{{ url_for('favitems') }}">
+                                    <div class="icon-large"><i class="ri-heart-line"></i></div>
+                                    <div class="fly-item"><span class="item-number">0</span></div>
+                                </a></li>
+                                <li><a href="{{ url_for('tienda') }}" class="iscart">
+                                    <div class="icon-large">
+                                        <i class="ri-shopping-cart-line"></i>
+                                        <div class="fly-item"><span class="item-number">0</span></div>
+                                    </div>
+                                    <div class="icon-text">
+                                        <div class="mini-text">total</div>
+                                        <div class="cart-total">$0.00</div>
+                                    </div>
+                                </a></li>
+                            </ul>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+       
+       <div class="header-main mobile-hide">
+        <div class="container">
+            <div class="wrapper flexitem">
+                <div class="left">
+                    <div class="dpt-cat">
+                        <div class="dpt-head">
+                            <div class="main-text">
+                                <div class="categoria">
+                                    <b>Categoria</b>
+                                </div>
+                                    
+                        </div>
+                        <div class="dpt-menu">
+                            <ul class="second-links">
+                                <li class="has-child beauty">
+                                    
+                                            
+                                            
+                                        
+                                    
+                                        </div>
+
+                                    </a>
+                                </li>
+                                
+                             
+                                    </div>
+        
+                                </div>
+                            
+                                
+                               
+                                
+                            </ul>
+                        </div>
+                    </div>
+        
+                </div>
+                <div class="right" style="margin-left: 51.5%;">
+                    <div class="search-box">
+                        <form action="http://127.0.0.1:5000/busqueda" class="search" method="POST">
+                            {{ form.hidden_tag() }}
+                            <span class="icon-large"><i class="ri-search-line"></i></span>
+                            <input type="search" placeholder="search for products" name="name">
+                            <button type="submit">search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+
+
+        </header>
+        <main>
+            <div class="slider">
+                <div class="container">
+                    <div class="wrapper">
+                        <div class="myslider">
+                            <div class="wrapper">
+                                <div class="slide">
+                                    <div class="item">
+                                        <div class="image object cover" style="align-items: center;"><img src="{{ url_for('static', filename='img/costos.jpg') }}" alt="">
+                                        </div>
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+          
+        <section class="imgtainer" id="menu" style="margin-top: -30%;">
+            <span class="section-subtitle">Especial</span>
+            <h2 class="section-title">Electronicos </h2>
+            <div class="menu_container tk-grid">
+
+                <div class="menu_content">
+                    <img src="{{ url_for('static', filename='img/ps4-product-thumbnail-01-en-14sep21.webp') }}" class="menu_img" alt="">
+                    <h3 class="menu_name">Playstation 4</h3>
+                    <span class="menu_detail">ps4</span>
+                    <span class="menu_preci">RD$19,750</span>
+                    <a href="carrito1.html" class="button menu_button"><i class="ri-shopping-cart-2-fill"></i></a>
+                </div>
+                <div class="menu_content">
+                    <img src="{{ url_for('static', filename='img/ps5-product-thumbnail-01-en-14sep21.jpg') }}" class="menu_img" alt="">
+                    <h3 class="menu_name">Playstation 5</h3>
+                    <span class="menu_detail">Ps5</span>
+                    <span class="menu_preci">RD$40,000</span>
+                    <a href="#" class="button menu_button"><i class="ri-shopping-cart-2-fill"></i></a>
+                </div>
+                <div class="menu_content">
+                    <img src="{{ url_for('static', filename='img/f085c120-d3d5-4424-8b70-eb25deaa326e.png') }}" class="menu_img" alt="">
+                    <h3 class="menu_name">Xbox Series x</h3>
+                    <span class="menu_detail">Xbox</span>
+                    <span class="menu_preci">RD$31,000</span>
+                    <a href="#" class="button menu_button"><i class="ri-shopping-cart-2-fill"></i></a>
+                </div>
+                <div class="menu_content">
+                    <img src="{{ url_for('static', filename='img/AIRPODS.jpg') }}" class="menu_img" alt="">
+                    <h3 class="menu_name">Airpods Pro </h3>
+                    <span class="menu_detail">Apple product</span>
+                    <span class="menu_preci">RD$10,550</span>
+                    <a href="#" class="button menu_button"><i class="ri-shopping-cart-2-fill"></i></a>
+                </div>
+                <div class="menu_content">
+                    <img src="{{ url_for('static', filename='img/front.webp') }}" class="menu_img" alt="">
+                    <h3 class="menu_name">Monitor Samsung</h3>
+                    <span class="menu_detail">Resolución QHD de 2560 x 1440 a 144 Hz & 1 ms</span>
+                    <span class="menu_preci">RD$29,100</span>
+                    <a href="#" class="button menu_button"><i class="ri-shopping-cart-2-fill"></i></a>
+                </div>
+                <div class="menu_content">
+                    <img src="{{ url_for('static', filename='img/front-5.webp') }}" class="menu_img" alt="">
+                    <h3 class="menu_name">Apple iPad Pro</h3>
+                    <span class="menu_detail">11″ 128GB, Wi-Fi, Space Grey</span>
+                    <span class="menu_preci">RD$68,900</span>
+                    <a href="carrito1.html" class="button menu_button"><i class="ri-shopping-cart-2-fill"></i><a>
+                </div>
+                
+                    <img src="{{ url_for('static', filename='img/amazon-current-logo.png.webp') }}" alt="" class="app_img">
+                
+            </div>
+        </section>
+
+        <section class="contact section tk-container" id="contact">
+            <div class="contact_container tk-grid">
+                <div class="contact_data"> 
+                    <span class="section-subtitle contact_initial">Hablanos</span>
+                    <h2 class="section-title contact_initial">Contacto</h2>
+                    <p class="contact_description"></p>
+                </div>
+                <div class="contact_button">
+                    <a href="https://wa.me/qr/4HSSIOPGCQQ6A1" class="button">Contactanos!</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pie-pagina">
+        <div class="grupo-1">
+            <div class="box">
+            
+                    
+                <img src="{{ url_for('static', filename='img/TEKEPRE-LOGO.jpg') }}" class="logo-tekepre" />
+            </div>
+            <div class="box">
+                <h2>SOBRE NOSOTROS</h2>
+                <p>Tek e' pre es una tienda tecnologica creada por la optativa de ciencia-techno de La Salle S6C.</p>
+                <p>Realmente somos una de las empresas fantasmas de Will.</p>
+            </div>
+            <div class="box">
+                <h2>SIGUENOS</h2>
+                <div class="red-social">
+                    <ul class="social" style="grid-template-columns: 1fr 1fr 1fr;">
+                        <li><a href="https://www.instagram.com/w1lfr3dp/" class="fa fa-instagram" style="font-size: 75px; margin-top: 
+                            55%; margin-left:5%;"></a></li>
+                        <li><a href="https://wa.me/qr/4HSSIOPGCQQ6A1" class="fa fa-whatsapp" style="font-size: 75px; margin-top: 
+                            55%; margin-left:5%;"></a></li>
+                        <li><a href="https://twitter.com/wilfredoperal11" class="fa fa-twitter" style="font-size: 75px; margin-top: 
+                        55%; margin-left: 5%;"></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grupo-2">
+            <small>&copy; 2021 <b>TEKEPRE</b> - Todos los Derechos Reservados.</small>
+        </div>
+    </footer>
+              
+
+</body>
+</html>

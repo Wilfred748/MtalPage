@@ -1,0 +1,8 @@
+Flask==2.2.2
+Flask_Login==0.6.2
+Flask_MySQLdb==1.0.1
+flask_sqlalchemy==3.0.3
+Flask_WTF==1.1.1
+setuptools==65.5.0
+Werkzeug==2.2.2
+WTForms==3.0.1

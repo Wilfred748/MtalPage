@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+	  <link rel="stylesheet" href="{{ url_for('static', filename='css/registrationform.css') }}" />
+  </head>
+  <header>
+    <a href="{{ url_for('main') }}" class="home" >home</a>
+  </header>
+  <body>
+    
+    <div class="signup-box">
+      <p>TEKEPRE</p>
+      <form action='http://127.0.0.1:5000/signup' method="post">
+        <fieldset class="info-user">
+          <input placeholder="Nombre Completo" type="text" name="name" required class="user-info">
+          <input placeholder="Número de teléfono" type="number" pattern="[0-9]{10}" name="phonenumber" required class="user-info">
+          <input placeholder="Email" type="email" name="email" required class="user-info">
+          <input placeholder="Contraseña" type="password" name="password" pattern="[a-z0-5]{8,}" required class="user-info">
+        </fieldset>
+        <fieldset>
+          <label>Sexo:</label>
+          <label style="margin-left: 8em; margin-top: -2em;"><input type="radio" name="gender" class="inline" /> Hombre</label>
+          <label style="margin-left: 8em; margin-top: 0em;"><input type="radio" name="gender" class="inline" /> Mujer</label>
+          <br>
+          <label>
+            <input type="checkbox" name="terms" class="inline" required /> Yo Acepto los <a href="{{ url_for('terms') }}">términos and condiciones</a>
+      </label>
+        </fieldset>
+        <input type="submit" value="Submit" class="submit">
+      </form>
+    </div>
+  </body>
+</html>

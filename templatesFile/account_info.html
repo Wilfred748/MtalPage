@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{% block title %} Your Info {% endblock %}
+
+
+
+{% block content%}
+
+<main style="margin-top: 20%; position: absolute; z-index: 101; margin-left: 47%;">
+{{ current_user.name }}
+
+<div">
+<a class="boton" href="{{ url_for('logout') }}">logout</a>
+</div>
+
+<style>
+.boton {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font: 20px times;
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #004d80;
+    border-radius: 10%;
+    border: none;
+    cursor: pointer;
+  }
+  .boton:hover {
+    color: #a00;
+    background: linear-gradient(to top, #eaeacf, #fff);
+    box-shadow: 0px 0px 4px #aaa;
+  }
+
+</style>
+</main>
+{% endblock%}
+
+<style>
+    div
+    {margin: 0 auto;}
+</style>
