@@ -1,5 +1,5 @@
 class Config:
-    SECRET_KEY = 'r4-BjvW6g0Aar4L-orvrtSVWlaxWLhgm'
+    SECRET_KEY = 'ur secret key'
 
 
 class DevelopmentConfig(Config):
