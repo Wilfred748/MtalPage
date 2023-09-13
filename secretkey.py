@@ -7,6 +7,6 @@ app.secret_key = secrets.token_urlsafe(1000)
 
 print(app.secret_key)
 
-password = generate_password_hash("123456789")
+password = generate_password_hash("put anything")
 
 print(password)
