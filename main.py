@@ -20,8 +20,8 @@ from User import AnonymousUser
 # Entities:
 #from models.entities.User import User
 
-#USUARIO: ADMINISTRADOR_BD_WIL
-#CONTRASENNA: r4-BjvW6g0Aar4L-orvrtSVWlaxWLhgm
+#USUARIO: #pon alguna/put yours
+#CONTRASENNA: #pon alguna/put yours
 
 app = Flask(__name__, template_folder='templatesFile', static_folder='staticsFile')
 
@@ -34,7 +34,7 @@ DATABASE = 'productos_tkp.db'
 db = MySQL(app)
 csrf = CSRFProtect()
 
-app.secret_key = "r4-BjvW6g0Aar4L-orvrtSVWlaxWLhgm"
+app.secret_key = #pon alguna/put yours
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///productos_tkp.db" 
 
@@ -74,7 +74,7 @@ def get_db():
 
 @app.route("/", methods=['GET', 'POST'])
 def main():
-    #print(generate_password_hash("r4-BjvW6g0Aar4L-orvrtSVWlaxWLhgm"))
+    #print(generate_password_hash(""))
     busqueda()
     return render_template('main.html')
 
@@ -172,7 +172,7 @@ def login():
             if check_password_hash(logged_user.password, usuarios.password):
                 login_user(logged_user)
 
-                if current_user.email == 'wilfredoperalta293@outlook.com':
+                if current_user.email == '#insert ur mail':
                     session['logged_in'] = True
                     current_user.role = 'admin' 
                     session['role'] = 'admin' # Assign "admin" role to the user
@@ -222,7 +222,7 @@ def admin():
 
     if current_user.id == 1:
         session['role'] = 'admin'
-    # logged_user.email == 'wilfredoperalta293@outlook.com' or
+    # logged_user.email == 'tu correo/ur mail' or
         flash("Welcome Patrón!!!")
         if request.method == 'POST':
             name = request.form["name"]
